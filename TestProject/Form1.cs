@@ -11,11 +11,6 @@ namespace NMSModdingStation
 {
     public partial class Form1 : Form
     {
-        /*
-        FolderBrowserDialog setPakPath = new FolderBrowserDialog();
-        FolderBrowserDialog setPathToYourModProjects = new FolderBrowserDialog();
-        OpenFileDialog setMBINCompilerPath = new OpenFileDialog();
-        */
         FolderBrowserDialog pcbanksPath = new FolderBrowserDialog();
         ToolTip listViewLoc = new ToolTip();
         public static string currentProject = "";
@@ -24,59 +19,6 @@ namespace NMSModdingStation
         public Form1()
         {
             InitializeComponent();
-            /*
-            if (Properties.Settings.Default["PCBanks"].ToString() != String.Empty)
-            {
-                if (Directory.Exists(Properties.Settings.Default["PCBanks"].ToString()))
-                {
-                    pcbanksPath.SelectedPath = Properties.Settings.Default["PCBanks"].ToString();
-                    setPathToPCBANKSToolStripMenuItem.ToolTipText = Properties.Settings.Default["PCBanks"].ToString();
-                }
-                else
-                {
-                    Properties.Settings.Default["PCBanks"] = String.Empty;
-                }
-            }
-            
-            if (Properties.Settings.Default["PAKPath"].ToString() != String.Empty)
-            {
-                if (Directory.Exists(Properties.Settings.Default["PAKPath"].ToString()))
-                {
-                    setPAKPathToolStripMenuItem.ToolTipText = Properties.Settings.Default["PAKPath"].ToString();
-                    setPakPath.SelectedPath = Properties.Settings.Default["PAKPath"].ToString();
-                    listViewFill(Properties.Settings.Default["PAKPath"].ToString(), listView1, textBox1);
-                }else
-                {
-                    Properties.Settings.Default["PAKPath"] = String.Empty;
-                }
-            }
-
-            if (Properties.Settings.Default["MBINCompilerPath"].ToString() != String.Empty)
-            {
-                if (File.Exists(Properties.Settings.Default["MBINCompilerPath"].ToString()))
-                {
-                    setMBINCompilerToolStripMenuItem.ToolTipText = Properties.Settings.Default["MBINCompilerPath"].ToString();
-                    setMBINCompilerPath.FileName = Properties.Settings.Default["MBINCompilerPath"].ToString();
-                }else
-                {
-                    Properties.Settings.Default["MBINCompilerPath"] = String.Empty;
-                }
-            }
-
-            if (Properties.Settings.Default["yourModsPath"].ToString() != String.Empty)
-            {
-                if (Directory.Exists(Properties.Settings.Default["yourModsPath"].ToString()))
-                {
-                    setPathToYourModProjectsToolStripMenuItem.ToolTipText = Properties.Settings.Default["yourModsPath"].ToString();
-                    setPathToYourModProjects.SelectedPath = Properties.Settings.Default["yourModsPath"].ToString();
-                    listViewFill(Properties.Settings.Default["yourModsPath"].ToString(), listView2, textBox2);
-                }
-                else
-                {
-                    Properties.Settings.Default["yourModsPath"] = String.Empty;
-                }
-            }
-            */
             controlControls();
         }
 
@@ -131,83 +73,7 @@ namespace NMSModdingStation
             listViewFill(Properties.Settings.Default["PAKPath"].ToString(), listView1, textBox1);
             listViewFill(Properties.Settings.Default["yourModsPath"].ToString(), listView2, textBox2);
         }
-        /*
-        //
-        //ListView Path ToolTip
-        private void listViewLoc_hover(object sender, EventArgs e)
-        {
-            TextBox tb = (TextBox)sender;
-            listViewLoc.Show(tb.Text, tb, 8000);
-        }
-
-        //
-        //Set path to unpacked .PAK files
-        private void setPAKPathToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            setPakPath.Description = "Select the directory that contains your unpacked game files";
-            if (setPakPath.ShowDialog() == DialogResult.OK)
-            {
-                Properties.Settings.Default["PAKPath"] = setPakPath.SelectedPath;
-                Properties.Settings.Default.Save();
-                setPAKPathToolStripMenuItem.ToolTipText = Properties.Settings.Default["PAKPath"].ToString();
-                listViewFill(Properties.Settings.Default["PAKPath"].ToString(), listView1, textBox1);
-                controlControls();
-            }
-        }
-
-        //
-        //Set path to MBINCompiler
-        private void setMBINCompilerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            setMBINCompilerPath.Filter = "EXE Files | *.exe";
-            if (setMBINCompilerPath.ShowDialog() == DialogResult.OK)
-            {
-                Properties.Settings.Default["MBINCompilerPath"] = setMBINCompilerPath.FileName;
-                Properties.Settings.Default.Save();
-                setMBINCompilerToolStripMenuItem.ToolTipText = Properties.Settings.Default["MBINCompilerPath"].ToString();
-                controlControls();
-            }
-        }
-
-        //
-        //Set path to your mod projects folder
-        private void setPathToYourModProjectsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            setPathToYourModProjects.Description = "Select the directory that contains the mods you are creating";
-            if (setPathToYourModProjects.ShowDialog() == DialogResult.OK)
-            {
-                Properties.Settings.Default["yourModsPath"] = setPathToYourModProjects.SelectedPath;
-                Properties.Settings.Default.Save();
-                setPathToYourModProjectsToolStripMenuItem.ToolTipText = Properties.Settings.Default["yourModsPath"].ToString();
-                listViewFill(Properties.Settings.Default["yourModsPath"].ToString(), listView2, textBox2);
-                controlControls();
-            }
-
-        }
-
-        //
-        //Set path to your PCBANKS folder
-        private void setPathToPCBANKSToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            setupPCBANKS();
-        }
-
-        //
-        //Clears all set paths
-        private void clearAllSettingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.Reset();
-            listView1.Items.Clear();
-            textBox1.Text = "";
-            listView2.Items.Clear();
-            textBox2.Text = "";
-            setPAKPathToolStripMenuItem.ToolTipText = "Path Not Set";
-            setMBINCompilerToolStripMenuItem.ToolTipText = "Path Not Set";
-            setPathToYourModProjectsToolStripMenuItem.ToolTipText = "Path Not Set";
-            controlControls();
-        }
-        */
-
+       
         //
         //Fill listView with Path
         public void listViewFill(String path, ListView listview, TextBox textbox)
@@ -266,22 +132,22 @@ namespace NMSModdingStation
 
                     item.ImageIndex = 3;
 
-                    if (item.SubItems[1].Text == ".MBIN")
+                    if (item.SubItems[1].Text.ToUpper() == ".MBIN")
                     {
                         item.ImageIndex = 1;
                     }
 
-                    if (item.SubItems[1].Text == ".exml")
+                    if (item.SubItems[1].Text.ToUpper() == ".EXML")
                     {
                         item.ImageIndex = 2;
                     }
 
-                    if (item.SubItems[1].Text == ".pak")
+                    if (item.SubItems[1].Text.ToUpper() == ".PAK")
                     {
                         item.ImageIndex = 5;
                     }
 
-                    if (item.SubItems[1].Text == ".nmf")
+                    if (item.SubItems[1].Text.ToUpper() == ".NMF")
                     {
                         item.ImageIndex = 6;
                     }
@@ -365,7 +231,7 @@ namespace NMSModdingStation
                         if (thisList.FocusedItem.SubItems[1].Text != "DIR" && thisList.FocusedItem.SubItems[1].Text != "NAV")
                         {
                             //If item is an exml file
-                            if (thisList.FocusedItem.SubItems[1].Text == ".exml")
+                            if (thisList.FocusedItem.SubItems[1].Text.ToUpper() == ".EXML")
                             {
                                 contextMenuStrip1.Items[3].Visible = true; // Show Recompile
                             }
@@ -375,7 +241,7 @@ namespace NMSModdingStation
                                 contextMenuStrip1.Items[2].Visible = true; //Show Copy to Project
                             }else //If item is in Project View
                             {
-                                if(thisList.FocusedItem.SubItems[1].Text == ".pak")
+                                if(thisList.FocusedItem.SubItems[1].Text.ToUpper() == ".PAK")
                                 {
                                     contextMenuStrip1.Items[9].Visible = true; //Show Copy To PCBANKS/MODS
                                 }
@@ -635,15 +501,15 @@ namespace NMSModdingStation
             string file = thisList.FocusedItem.Text;
             string ext = thisList.FocusedItem.SubItems[1].Text;
 
-            if(ext == ".MBIN" || ext == ".PC")
+            if(ext.ToUpper() == ".MBIN" || ext.ToUpper() == ".PC")
             {
                 processFile(@Properties.Settings.Default["MBINCompilerPath"].ToString(), @path + @file + @ext);
                 setStatus("Decompiled " +  @file + @ext);
-            }else if(ext == ".pak")
+            }else if(ext.ToUpper() == ".PAK")
             {
                 Functions.Extract(path + file + ext, null);
                 setStatus("Extracted " + file + ext);
-            }else if(ext == ".exml" || ext == ".H" || ext == ".GLSL" || ext == ".TXT" || ext == ".CSV" || ext == ".XML" || ext == ".JSON")
+            }else if(ext.ToUpper() == ".EXML" || ext.ToUpper() == ".H" || ext.ToUpper() == ".GLSL" || ext.ToUpper() == ".TXT" || ext.ToUpper() == ".CSV" || ext.ToUpper() == ".XML" || ext.ToUpper() == ".JSON")
             {
                 try
                 {
@@ -653,7 +519,7 @@ namespace NMSModdingStation
                 {
                     Process.Start("notepad.exe", path + file + ext);
                 }
-            }else if(ext == ".nmf")
+            }else if(ext.ToUpper() == ".NMF")
             {
                 string project = getCurrentProjectRoot();
                 if (project != null)

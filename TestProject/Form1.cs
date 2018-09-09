@@ -461,7 +461,7 @@ namespace NMSModdingStation
 
                 listViewFill(copyTo.Remove(copyTo.LastIndexOf("\\")), listView2, textBox2);
                 tabControl1.SelectedIndex = 1;
-                setStatus("Copy Succesful");
+                setStatus("Copy Successful");
             }
             else
             {
@@ -473,7 +473,7 @@ namespace NMSModdingStation
         //Method to start program with arguments
         private void processFile(string command, string arg)
         {
-            ProcessStartInfo start = new ProcessStartInfo("\"" + command + "\"", "\"" + arg + "\"");
+            ProcessStartInfo start = new ProcessStartInfo("\"" + command + "\"", arg);
             start.UseShellExecute = false;
             start.CreateNoWindow = true; // Important if you want to keep shell window hidden
             Process.Start(start).WaitForExit(); //important to add WaitForExit()
@@ -503,7 +503,7 @@ namespace NMSModdingStation
 
             if(ext.ToUpper() == ".MBIN" || ext.ToUpper() == ".PC")
             {
-                processFile(@Properties.Settings.Default["MBINCompilerPath"].ToString(), @path + @file + @ext);
+                processFile(@Properties.Settings.Default["MBINCompilerPath"].ToString(), "convert -y " + "\"" + @path + @file + @ext + "\"");
                 setStatus("Decompiled " +  @file + @ext);
             }else if(ext.ToUpper() == ".PAK")
             {
@@ -755,7 +755,7 @@ namespace NMSModdingStation
             string file = thisList.FocusedItem.Text;
             string ext = thisList.FocusedItem.SubItems[1].Text;
 
-            processFile(@Properties.Settings.Default["MBINCompilerPath"].ToString(), @path + @file + @ext);
+            processFile(@Properties.Settings.Default["MBINCompilerPath"].ToString(), "convert -y " + "\"" + @path + @file + @ext + "\"");
             listViewFill(path.Remove(path.LastIndexOf("\\")), thisList, thisBox);
             setStatus("Compiled " + @file + @ext);
         }
